@@ -27,19 +27,19 @@ const Swipeable = ({ action, children, page, pagesNumber }) => {
   const handleMoveEnd = () => {
     if (moveStart - moveEnd > 100 && page + 1 <= pagesNumber - 1) {
       setIsFaded(true);
+      setTimeout(() => action(page + 1), 500);
       setTimeout(() => setIsFaded(false), 1000);
-      action(page + 1);
     }
     if (moveStart - moveEnd < -100 && page - 1 >= 0) {
       setIsFaded(true);
+      setTimeout(() => action(page - 1), 500);
       setTimeout(() => setIsFaded(false), 1000);
-      action(page - 1);
     }
   };
 
   return (
     <div
-      className={clsx('w-100', isFaded && styles.faded)}
+      className={clsx('w-100', styles.container, isFaded && styles.faded)}
       onTouchStart={e => handleTouchStart(e)}
       onTouchMove={e => handleTouchMove(e)}
       onTouchEnd={() => handleMoveEnd()}
