@@ -27,19 +27,7 @@
 }
 
 .fade {
-  animation: changePage 500ms ease-out;
-}
-
-@keyframes changePage {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  animation: $change-page;
 }
 
 @media (max-width: 1200px) {

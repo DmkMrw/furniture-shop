@@ -3,7 +3,7 @@
 .root {
 
   .fade {
-    animation: changePage 500ms ease-out;
+    animation: $change-page;
   }
 
   .galleryContent {
@@ -19,7 +19,7 @@
       width: 100%;
       object-fit: contain;
     }
-    
+
 
     .buttonLayout {
       position: absolute;
@@ -99,7 +99,7 @@
         a {
           text-decoration: none;
           color: rgb(42, 42, 42);
-        } 
+        }
       }
     }
   }
@@ -115,7 +115,7 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     text-align: center;
-    border: 1px solid $furniture-container-border; 
+    border: 1px solid $furniture-container-border;
 
     button {
       padding: 10px;
@@ -145,7 +145,7 @@
         border: 2px solid $primary;
         z-index: 2;
       }
-      
+
       &:not(:first-of-type) {
         border-left: 1px solid $furniture-container-border;
       }
@@ -242,7 +242,7 @@
         position: relative;
         padding: 0;
         margin-top: 0;
-        
+
           .image {
             object-fit: cover;
           }
@@ -274,17 +274,5 @@
     .galleryNav {
       font-size: .75rem;
     }
-  }
-}
-
-@keyframes changePage {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }

@@ -2,17 +2,14 @@ import React, { useEffect, useState, useContext } from 'react';
 import CarouselButton from '../CarouselButton/CarouselButton';
 import styles from './Carousel.module.scss';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
-import { getProductsGroup } from '../../../redux/productsRedux';
 import Swipeable from '../Swipeable/Swipeable';
 import clsx from 'clsx';
 import { WidthContext } from '../../layout/MainLayout/MainLayout';
 
 const Carousel = ({ products, action, parentFade, handleParentFade }) => {
-  const productsToDisplay = useSelector(state => getProductsGroup(state, products));
   const windowWidth = useContext(WidthContext);
   const [productsPerPage, setProductsPerPage] = useState(7);
-  const pagesNumber = Math.ceil(productsToDisplay.length / productsPerPage);
+  const pagesNumber = Math.ceil(products.length / productsPerPage);
   const [currentPage, setCurrentPage] = useState(0);
 
   const [fade, setFade] = useState(false);
@@ -29,7 +26,7 @@ const Carousel = ({ products, action, parentFade, handleParentFade }) => {
     setFade(true);
     setTimeout(() => {
       setFade(false);
-    }, 500);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -55,17 +52,19 @@ const Carousel = ({ products, action, parentFade, handleParentFade }) => {
       />
       <Swipeable action={setCurrentPage} page={currentPage} pagesNumber={pagesNumber}>
         <div className={clsx(styles.images, fade && styles.fade)}>
-          {productsToDisplay
+          {products
             .slice(productsPerPage * currentPage, productsPerPage * (currentPage + 1))
             .map(elem => (
               <button
                 onClick={() => {
-                  handleParentFade();
-                  setTimeout(() => {
-                    action(elem.id);
-                  }, 250);
+                  if (action) {
+                    handleParentFade();
+                    setTimeout(() => {
+                      action(elem.id);
+                    }, 500);
+                  }
                 }}
-                disabled={parentFade}
+                disabled={action && parentFade}
                 className={styles.imageContainer}
                 key={elem.id}
               >
@@ -91,7 +90,7 @@ const Carousel = ({ products, action, parentFade, handleParentFade }) => {
 
 Carousel.propTypes = {
   products: PropTypes.arrayOf(PropTypes.string),
-  action: PropTypes.func,
+  action: PropTypes.func || undefined,
   parentFade: PropTypes.bool,
   handleParentFade: PropTypes.func,
 };

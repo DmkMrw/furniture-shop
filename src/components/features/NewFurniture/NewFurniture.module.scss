@@ -81,14 +81,8 @@
   }
 
   .faded {
-    animation: fadeIn 1s;
+    animation: $change-page;
    }
-
-   @keyframes fadeIn {
-    0% { opacity: 1; }
-    50% { opacity: 0;}
-    100% { opacity: 1; }
-  }
 
   .dropdownButton {
     padding: 5px;

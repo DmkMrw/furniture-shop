@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import SectionHeading from '../../common/SectionHeading/SectionHeading';
 import styles from './FurnitureGallery.module.scss';
 import Button from '../../common/Button/Button';
@@ -11,7 +11,7 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-import { getProductById } from '../../../redux/productsRedux';
+import { getProductById, getProductsGroup } from '../../../redux/productsRedux';
 import { getById } from '../../../redux/galleryRedux';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
@@ -42,6 +42,11 @@ const FurnitureGallery = () => {
     ownStars,
     stars,
   } = useSelector(state => getProductById(state, currentProduct));
+  const productsToDisplay = useCallback(
+    useSelector(state => getProductsGroup(state, productIds)),
+    [productIds]
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,7 +59,7 @@ const FurnitureGallery = () => {
     setFade(true);
     setTimeout(() => {
       setFade(false);
-    }, 500);
+    }, 1000);
   };
 
   const handleClick = e => {
@@ -93,7 +98,7 @@ const FurnitureGallery = () => {
                       handleFade();
                       setTimeout(() => {
                         setCurrentPageId(idx);
-                      }, 250);
+                      }, 500);
                     }}
                     disabled={fade}
                     key={idx}
@@ -144,7 +149,7 @@ const FurnitureGallery = () => {
             </div>
             <div className={clsx('col-12 px-0', fade && styles.fade)}>
               <Carousel
-                products={productIds}
+                products={productsToDisplay}
                 action={setCurrentProduct}
                 handleParentFade={handleFade}
                 parentFade={fade}
