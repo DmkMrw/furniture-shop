@@ -12,19 +12,17 @@ import SliderDots from '../../common/SliderDots/SliderDots';
 
 const FeaturedBox = () => {
   const featuredProductIds = useSelector(state => getAll(state));
-  const featuredPages = featuredProductIds.length;
   const [currentFeatured, setCurrentFeatured] = useState(0);
+  const promoImageIdxs = [1, 2];
   const currentProduct = useSelector(state =>
     getProductById(state, featuredProductIds[currentFeatured])
   );
-  const [autoplayStatus, setAutoplayStatus] = useState(true);
-  const [featuredFade, setFeaturedFade] = useState(false);
-
-  const promoImageIdxs = [1, 2];
-  const promoPages = promoImageIdxs.length;
   const lastPromoPageIdx = promoImageIdxs.length - 1;
+  const featuredPages = featuredProductIds.length;
+  const [featuredFade, setFeaturedFade] = useState(false);
   const [promoFade, setPromoFade] = useState(false);
-  const [currentPromoPage, setCurrentPromoPage] = useState(0);
+  const [autoplayStatus, setAutoplayStatus] = useState(true);
+  const [currentPromoImg, setCurrentPromoImg] = useState(0);
 
   const changeSlide = useCallback(() => {
     const lastItemIndex = featuredPages - 1;
@@ -73,6 +71,14 @@ const FeaturedBox = () => {
     }, 1000);
   };
 
+  const handleDot = elem => {
+    manageAutoplay();
+    manageFeaturedFade();
+    setTimeout(() => {
+      setCurrentFeatured(elem);
+    }, 500);
+  };
+
   return (
     <div className={styles.root}>
       <div className='container'>
@@ -80,7 +86,12 @@ const FeaturedBox = () => {
           <div className={`col-4 ${styles.featuredProductBox}`}>
             <div className={styles.heading}>
               <h5>Hot deals</h5>
-              <SliderDots pagesNumber={3} />
+              <SliderDots
+                pagesNumber={3}
+                action={handleDot}
+                currentPage={currentFeatured}
+                isFaded={featuredFade}
+              />
             </div>
             <div
               onTouchStart={() => manageAutoplay()}
@@ -96,15 +107,11 @@ const FeaturedBox = () => {
             </div>
           </div>
 
-          <div className={clsx('col-8', styles.carouselLayout)}>
-            <Swipeable
-              page={currentPromoPage}
-              action={setCurrentPromoPage}
-              pagesNumber={promoPages}
-            >
+          <div className={clsx('col-12 col-lg-8', styles.carouselLayout)}>
+            <Swipeable>
               <div className={clsx(styles.image, promoFade && styles.fade)}>
                 <img
-                  src={`${process.env.PUBLIC_URL}/images/featureBox${promoImageIdxs[currentPromoPage]}.jpg`}
+                  src={`${process.env.PUBLIC_URL}/images/featureBox${promoImageIdxs[currentPromoImg]}.jpg`}
                   alt='sofa'
                 />
               </div>
@@ -120,22 +127,22 @@ const FeaturedBox = () => {
             </Swipeable>
             <div className={styles.buttons}>
               <CarouselButton
-                action={setCurrentPromoPage}
+                action={setCurrentPromoImg}
                 parentFade={promoFade}
                 handleParentFade={managePromoFade}
                 lastPageIndex={lastPromoPageIdx}
-                currentPage={currentPromoPage}
+                currentPage={currentPromoImg}
                 infinite
                 direction='left'
               />
               <CarouselButton
                 direction='right'
-                action={setCurrentPromoPage}
+                action={setCurrentPromoImg}
                 parentFade={promoFade}
                 handleParentFade={managePromoFade}
                 lastPageIndex={lastPromoPageIdx}
                 infinite
-                currentPage={currentPromoPage}
+                currentPage={currentPromoImg}
               />
             </div>
           </div>
