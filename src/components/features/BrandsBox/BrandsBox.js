@@ -19,9 +19,11 @@ const BrandsBox = () => {
   };
   return (
     <div className={styles.root}>
-      <SectionHeading text={'Furniture gallery'} />
-      <div className={clsx('col-12 px-0', fade && styles.fade)}>
-        <Carousel products={brands} handleParentFade={handleFade} parentFade={fade} />
+      <div className='container'>
+        <SectionHeading text={'Brands'} />
+        <div className={clsx('col-12 px-0', fade && styles.fade)}>
+          <Carousel products={brands} handleParentFade={handleFade} parentFade={fade} />
+        </div>
       </div>
     </div>
   );

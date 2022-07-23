@@ -1,7 +1,7 @@
 @import "../../../styles/settings.scss";
 
 .root {
-  padding: 0 0 5rem 0;
+  padding: $section-padding;
   color: $color-white;
   height: 100%;
   box-sizing: border-box;

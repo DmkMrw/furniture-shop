@@ -1,6 +1,7 @@
 @import "../../../styles/settings.scss";
 
 .root {
+  padding: $section-padding;
 
   .fade {
     animation: $change-page;
@@ -20,7 +21,6 @@
       object-fit: contain;
     }
 
-
     .buttonLayout {
       position: absolute;
       top: 50%;
@@ -29,10 +29,7 @@
       gap: 5px;
       display: flex;
       flex-flow: column nowrap;
-
     }
-
-
 
     .productData {
       background-color: $color-white;

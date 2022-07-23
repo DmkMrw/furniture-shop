@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, useState, useContext } from 'react';
 import CarouselButton from '../CarouselButton/CarouselButton';
 import styles from './Carousel.module.scss';
@@ -64,7 +65,7 @@ const Carousel = ({ products, action, parentFade, handleParentFade }) => {
                     }, 500);
                   }
                 }}
-                disabled={action && parentFade}
+                disabled={parentFade || !action}
                 className={styles.imageContainer}
                 key={elem.id}
               >
