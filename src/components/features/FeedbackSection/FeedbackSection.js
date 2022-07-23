@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import { feedbackState, feedbackLength } from '../../../recoil/feedbackAtom';
 import { fadeDurationInMs, contentRefreshDelayInMs } from '../../../constants';
 import SliderDots from '../../common/SliderDots/SliderDots';
+import SectionHeading from '../../common/SectionHeading/SectionHeading';
 
 const FeedbackSection = () => {
   const feedbacks = useRecoilValue(feedbackState);
@@ -18,26 +19,22 @@ const FeedbackSection = () => {
 
   const handlePageChange = pageToSet => {
     setIsFaded(true);
-    setTimeout(() => setIsFaded(false), 1000);
-    setTimeout(() => setActivePage(pageToSet), 500);
+    setTimeout(() => setIsFaded(false), fadeDurationInMs);
+    setTimeout(() => setActivePage(pageToSet), contentRefreshDelayInMs);
   };
 
   return (
     <div className={styles.root}>
       <div className='container'>
         <div className={styles.panelBar}>
-          <div className='row no-gutters align-items-end'>
-            <div className={'col-auto ' + styles.heading}>
-              <h3>Client feedback</h3>
-            </div>
-            <div className={styles.dotsLayout}>
-              <SliderDots
-                currentPage={activePage}
-                action={handlePageChange}
-                isFaded={isFaded}
-                pagesNumber={feedbacksLength}
-              />
-            </div>
+          <SectionHeading text={'Client feedback'} />
+          <div className={styles.dotsLayout}>
+            <SliderDots
+              currentPage={activePage}
+              action={handlePageChange}
+              isFaded={isFaded}
+              pagesNumber={feedbacksLength}
+            />
           </div>
         </div>
 
