@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { feedbackState, feedbackLength } from '../../../recoil/feedbackAtom';
 import { fadeDurationInMs, contentRefreshDelayInMs } from '../../../constants';
+import SliderDots from '../../common/SliderDots/SliderDots';
 
 const FeedbackSection = () => {
   const feedbacks = useRecoilValue(feedbackState);
@@ -15,26 +16,11 @@ const FeedbackSection = () => {
 
   const { description, picture, firstName, lastName, role } = feedbacks[activePage];
 
-  const dots = [];
-
-  for (let i = 0; i < feedbacksLength; i++) {
-    dots.push(
-      <li key={i}>
-        <a
-          onClick={() => {
-            setIsFaded(true);
-            setTimeout(() => setIsFaded(false), fadeDurationInMs);
-            setTimeout(() => setActivePage(i), contentRefreshDelayInMs);
-          }}
-          className={`${i === activePage ? styles.active : ''} ${styles.dotButton} ${
-            isFaded ? styles.disabled : ''
-          }`}
-        >
-          feedback {i}
-        </a>
-      </li>
-    );
-  }
+  const handlePageChange = pageToSet => {
+    setIsFaded(true);
+    setTimeout(() => setIsFaded(false), 1000);
+    setTimeout(() => setActivePage(pageToSet), 500);
+  };
 
   return (
     <div className={styles.root}>
@@ -44,8 +30,13 @@ const FeedbackSection = () => {
             <div className={'col-auto ' + styles.heading}>
               <h3>Client feedback</h3>
             </div>
-            <div className={'col-auto ' + styles.dots}>
-              <ul>{dots}</ul>
+            <div className={styles.dotsLayout}>
+              <SliderDots
+                currentPage={activePage}
+                action={handlePageChange}
+                isFaded={isFaded}
+                pagesNumber={feedbacksLength}
+              />
             </div>
           </div>
         </div>

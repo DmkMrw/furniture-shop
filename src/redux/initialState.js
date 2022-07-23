@@ -1448,6 +1448,12 @@ const initialState = {
       ],
     },
   ],
+  brands: ['brand1', 'brand2', 'brand3', 'brand2', 'brand1'],
+  featured: [
+    'aenean-ru-bristique-9',
+    'aenean-ru-bristique-8',
+    'aenean-ru-bristique-13',
+  ],
 };
 
 export default initialState;
