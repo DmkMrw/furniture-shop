@@ -8,6 +8,7 @@ import { getProductById } from '../../../redux/productsRedux';
 import clsx from 'clsx';
 import Swipeable from '../../common/Swipeable/Swipeable';
 import CarouselButton from '../../common/CarouselButton/CarouselButton';
+import SliderDots from '../../common/SliderDots/SliderDots';
 
 const FeaturedBox = () => {
   const featuredProductIds = useSelector(state => getAll(state));
@@ -79,26 +80,7 @@ const FeaturedBox = () => {
           <div className={`col-4 ${styles.featuredProductBox}`}>
             <div className={styles.heading}>
               <h5>Hot deals</h5>
-              <ul className={styles.dots}>
-                {featuredProductIds.map(elem => (
-                  <li key={elem}>
-                    <button
-                      type='button'
-                      onClick={() => {
-                        manageAutoplay();
-                        manageFeaturedFade();
-                        setTimeout(() => {
-                          setCurrentFeatured(featuredProductIds.indexOf(elem));
-                        }, 500);
-                      }}
-                      className={clsx(
-                        currentFeatured === featuredProductIds.indexOf(elem) &&
-                          styles.active
-                      )}
-                    ></button>
-                  </li>
-                ))}
-              </ul>
+              <SliderDots pagesNumber={3} />
             </div>
             <div
               onTouchStart={() => manageAutoplay()}
