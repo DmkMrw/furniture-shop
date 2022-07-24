@@ -8,7 +8,7 @@ import { toggleCompareProduct } from '../../../redux/productsRedux';
 import styles from './ComparedProductCard.module.scss';
 
 import { comparedProductsState } from '../../../recoil/productComparatorAtom';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 const ComparedProductCard = ({ id, image }) => {
   const dispatch = useDispatch();
@@ -28,9 +28,6 @@ const ComparedProductCard = ({ id, image }) => {
       products: comparedProduct.products.filter(product => product.id !== payload.id),
     });
   };
-
-  const comparedProducts = useRecoilValue(comparedProductsState);
-  console.log('comparedProducts', comparedProducts.products);
 
   return (
     <div className={styles.card}>

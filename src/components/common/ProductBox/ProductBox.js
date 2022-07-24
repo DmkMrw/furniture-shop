@@ -19,7 +19,6 @@ import {
 import Timer from '../Timer/Timer';
 import { Link } from 'react-router-dom';
 import { addProduct } from '../../../redux/cartRedux';
-
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   comparedProductsState,
