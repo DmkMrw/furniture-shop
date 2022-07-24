@@ -52,6 +52,7 @@ const ProductBox = ({
   const payload = {
     id: id,
     image: image,
+    isCompared: true,
   };
 
   const handleCompare = e => {
