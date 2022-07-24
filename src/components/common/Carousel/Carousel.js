@@ -6,28 +6,37 @@ import PropTypes from 'prop-types';
 import Swipeable from '../Swipeable/Swipeable';
 import clsx from 'clsx';
 import { WidthContext } from '../../layout/MainLayout/MainLayout';
+import {
+  fadeDurationInMs,
+  contentRefreshDelayInMs,
+  mobileBreakpoint,
+  desktopBreakpoint,
+  mobileItemsPerPage,
+  tabletItemsPerPage,
+  desktopItemsPerPage,
+} from '../../../constants';
 
 const Carousel = ({ products, action, parentFade, handleParentFade }) => {
   const windowWidth = useContext(WidthContext);
-  const [productsPerPage, setProductsPerPage] = useState(7);
+  const [productsPerPage, setProductsPerPage] = useState(desktopItemsPerPage);
   const pagesNumber = Math.ceil(products.length / productsPerPage);
   const [currentPage, setCurrentPage] = useState(0);
 
   const [fade, setFade] = useState(false);
 
   const detectScreenWidth = width => {
-    width <= 400
-      ? setProductsPerPage(3)
-      : width <= 1200
-      ? setProductsPerPage(5)
-      : setProductsPerPage(6);
+    width <= mobileBreakpoint
+      ? setProductsPerPage(mobileItemsPerPage)
+      : width <= desktopBreakpoint
+      ? setProductsPerPage(tabletItemsPerPage)
+      : setProductsPerPage(desktopItemsPerPage);
   };
 
   const handleFade = () => {
     setFade(true);
     setTimeout(() => {
       setFade(false);
-    }, 1000);
+    }, fadeDurationInMs);
   };
 
   useEffect(() => {
@@ -62,7 +71,7 @@ const Carousel = ({ products, action, parentFade, handleParentFade }) => {
                     handleParentFade();
                     setTimeout(() => {
                       action(elem.id);
-                    }, 500);
+                    }, contentRefreshDelayInMs);
                   }
                 }}
                 disabled={parentFade || !action}
