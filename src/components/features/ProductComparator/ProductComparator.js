@@ -15,14 +15,8 @@ import { comparedProductsCounter } from '../../../recoil/productComparatorAtom';
 import { useRecoilValue } from 'recoil';
 
 const ProductComparator = () => {
-  // const comparedProductsCount = useSelector(state => getCountOfCompared(state));
-  // const comparedProducts = useSelector(state => getAllCompared(state));
-
   const comparedProductsCount = useRecoilValue(comparedProductsCounter);
   const comparedProducts = useRecoilValue(comparedProductsState);
-
-  console.log('comparedProductsCount', comparedProductsCount);
-  console.log('comparedProducts', comparedProducts.products);
 
   return (
     <div className={clsx(styles.root, comparedProductsCount < 2 && styles.hidden)}>
