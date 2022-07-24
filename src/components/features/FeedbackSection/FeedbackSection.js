@@ -1,64 +1,64 @@
 import React from 'react';
 import styles from './FeedbackSection.module.scss';
-import { useSelector } from 'react-redux';
-import { getAll } from '../../../redux/feedbackRedux';
 import Swipeable from '../../common/Swipeable/Swipeable';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { feedbackState, feedbackLength } from '../../../recoil/feedbackAtom';
+import { fadeDurationInMs, contentRefreshDelayInMs } from '../../../constants';
 import SliderDots from '../../common/SliderDots/SliderDots';
+import SectionHeading from '../../common/SectionHeading/SectionHeading';
 
 const FeedbackSection = () => {
-  const allFeedbacks = useSelector(state => getAll(state));
-  const pagesNumber = allFeedbacks.length;
+  const feedbacks = useRecoilValue(feedbackState);
+  const feedbacksLength = useRecoilValue(feedbackLength);
 
   const [activePage, setActivePage] = useState(0);
   const [isFaded, setIsFaded] = useState(false);
 
+  const { description, picture, firstName, lastName, role } = feedbacks[activePage];
+
   const handlePageChange = pageToSet => {
     setIsFaded(true);
-    setTimeout(() => setIsFaded(false), 1000);
-    setTimeout(() => setActivePage(pageToSet), 500);
+    setTimeout(() => setIsFaded(false), fadeDurationInMs);
+    setTimeout(() => setActivePage(pageToSet), contentRefreshDelayInMs);
   };
 
   return (
     <div className={styles.root}>
       <div className='container'>
         <div className={styles.panelBar}>
-          <div className='row no-gutters align-items-end'>
-            <div className={'col-auto ' + styles.heading}>
-              <h3>Client feedback</h3>
-            </div>
-            <div className={styles.dotsLayout}>
-              <SliderDots
-                currentPage={activePage}
-                action={handlePageChange}
-                isFaded={isFaded}
-                pagesNumber={pagesNumber}
-              />
-            </div>
+          <SectionHeading text={'Client feedback'} />
+          <div className={styles.dotsLayout}>
+            <SliderDots
+              currentPage={activePage}
+              action={handlePageChange}
+              isFaded={isFaded}
+              pagesNumber={feedbacksLength}
+            />
           </div>
         </div>
 
         <Swipeable
           action={setActivePage}
           page={activePage}
-          pagesNumber={allFeedbacks.length}
+          pagesNumber={feedbacksLength}
         >
           <div className={`row ${isFaded ? styles.faded : ''}`}>
-            <div key={allFeedbacks[activePage].id} className={styles.feedbackBox}>
+            <div className={styles.feedbackBox}>
               <p className={styles.decoration}>&quot;</p>
-              <p className={styles.desc}>{allFeedbacks[activePage].description}</p>
+              <p className={styles.desc}>{description}</p>
               <div className='mx-auto mt-4'>
                 <div className='d-inline-flex'>
                   <div>
                     <img
                       className={`rounded ${styles.image}`}
-                      src={allFeedbacks[activePage].picture}
+                      src={picture}
                       alt='person'
                     />
                   </div>
                   <div className={styles.personDesc}>
-                    <p>{`${allFeedbacks[activePage].firstName} ${allFeedbacks[activePage].lastName}`}</p>
-                    <p>{allFeedbacks[activePage].role}</p>
+                    <p>{`${firstName} ${lastName}`}</p>
+                    <p>{role}</p>
                   </div>
                 </div>
               </div>
