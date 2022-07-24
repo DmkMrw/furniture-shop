@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState, useContext, useEffect } from 'react';
 
 import styles from './NewFurniture.module.scss';

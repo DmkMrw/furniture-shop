@@ -1,12 +1,12 @@
 @import "../../../styles/settings.scss";
 
 .root {
-  padding: 5rem 0;
+  padding: $section-padding;
 }
 
 @media (max-width: 768px) {
   .featureBox {
-    padding-bottom: 50px;
+    padding-bottom: $space-unit * 10;
     font-size: 1rem;
     h5 {
       font-size: 1.1rem;

@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import SectionHeading from '../../common/SectionHeading/SectionHeading';
 import styles from './FurnitureGallery.module.scss';
 import Button from '../../common/Button/Button';
 import Carousel from '../../common/Carousel/Carousel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar as farStar, faHeart, faEye } from '@fortawesome/free-regular-svg-icons';
-import {
-  faExchangeAlt,
-  faShoppingBasket,
-  faStar,
-} from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faEye } from '@fortawesome/free-regular-svg-icons';
+import { faExchangeAlt, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-import { getProductById } from '../../../redux/productsRedux';
+import { getProductById, getProductsGroup } from '../../../redux/productsRedux';
 import { getById } from '../../../redux/galleryRedux';
 import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
@@ -25,6 +21,11 @@ import {
   getCountOfCompared,
 } from '../../../redux/comparedProductsRedux';
 import StarRating from '../StarRating/StarRating';
+import {
+  contentRefreshDelayInMs,
+  fadeDurationInMs,
+  comparedProductsLimit,
+} from '../../../constants';
 
 const FurnitureGallery = () => {
   const galleryNavHeadings = ['Featured', 'Top Seller', 'Sale off', 'Top rated'];
@@ -42,6 +43,11 @@ const FurnitureGallery = () => {
     ownStars,
     stars,
   } = useSelector(state => getProductById(state, currentProduct));
+  const productsToDisplay = useCallback(
+    useSelector(state => getProductsGroup(state, productIds)),
+    [productIds]
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,7 +60,7 @@ const FurnitureGallery = () => {
     setFade(true);
     setTimeout(() => {
       setFade(false);
-    }, 500);
+    }, fadeDurationInMs);
   };
 
   const handleClick = e => {
@@ -69,11 +75,11 @@ const FurnitureGallery = () => {
       dispatch(toggleCompareProduct(id));
       dispatch(removeFromCompare(id));
     } else {
-      if (count < 4) {
+      if (count < comparedProductsLimit) {
         dispatch(addToCompare(id));
         dispatch(toggleCompareProduct(id));
       } else {
-        alert('Max number of compared products is 4'); // change to final alert modal
+        alert(`Max number of compared products is ${comparedProductsLimit}`); // change to final alert modal
       }
     }
   };
@@ -93,7 +99,7 @@ const FurnitureGallery = () => {
                       handleFade();
                       setTimeout(() => {
                         setCurrentPageId(idx);
-                      }, 250);
+                      }, contentRefreshDelayInMs);
                     }}
                     disabled={fade}
                     key={idx}
@@ -144,7 +150,7 @@ const FurnitureGallery = () => {
             </div>
             <div className={clsx('col-12 px-0', fade && styles.fade)}>
               <Carousel
-                products={productIds}
+                products={productsToDisplay}
                 action={setCurrentProduct}
                 handleParentFade={handleFade}
                 parentFade={fade}

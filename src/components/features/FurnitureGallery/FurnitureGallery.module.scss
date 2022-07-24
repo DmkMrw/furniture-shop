@@ -1,17 +1,18 @@
 @import "../../../styles/settings.scss";
 
 .root {
+  padding: $section-padding;
 
   .fade {
-    animation: changePage 500ms ease-out;
+    animation: $change-page;
   }
 
   .galleryContent {
     background-color: $furniture-container-border;
-    padding-block: 25px;
+    padding-block: $space-unit * 5;
     text-align: center;
     position: relative;
-    margin-bottom: 5px;
+    margin-bottom: $space-unit;
     height: 400px;
 
     img {
@@ -19,29 +20,25 @@
       width: 100%;
       object-fit: contain;
     }
-    
 
     .buttonLayout {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      left:5px;
-      gap: 5px;
+      left: $space-unit;
+      gap: $space-unit;
       display: flex;
       flex-flow: column nowrap;
-
     }
-
-
 
     .productData {
       background-color: $color-white;
       width: max-content;
-      padding: 25px 35px;
+      padding: $space-unit * 5 $space-unit * 7;
       position: absolute;
-      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
-      bottom: 10px;
-      right: 10px;
+      box-shadow: $product-data-shadow;
+      bottom: $space-unit * 2;
+      right: $space-unit * 2;
 
       .promotionInfo {
         background-color: $color-dark-transparent;
@@ -52,7 +49,7 @@
         border-radius: 100%;
         aspect-ratio: 1 / 1;
         color: $color-white;
-        padding: 20px;
+        padding: $space-unit * 4;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -61,7 +58,7 @@
           margin: 0;
 
           &:first-of-type {
-            font-weight: 700;
+            font-weight: $font-weight-bold;
             font-size: 1.2rem;
           }
 
@@ -98,8 +95,8 @@
       .stars {
         a {
           text-decoration: none;
-          color: rgb(42, 42, 42);
-        } 
+          color: $stars-color
+        }
       }
     }
   }
@@ -115,14 +112,14 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     text-align: center;
-    border: 1px solid $furniture-container-border; 
+    border: 1px solid $furniture-container-border;
 
     button {
-      padding: 10px;
+      padding: $space-unit * 2;
       flex-grow: 1;
       position: relative;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: $font-weight-bolder;
       color: $text-color;
       text-transform: uppercase;
       border: 0;
@@ -145,7 +142,7 @@
         border: 2px solid $primary;
         z-index: 2;
       }
-      
+
       &:not(:first-of-type) {
         border-left: 1px solid $furniture-container-border;
       }
@@ -169,12 +166,12 @@
       left: 0;
       transform: translate(50px, 75px);
       height: max-content;
-      gap: 5px;
+      gap: $space-unit;
       z-index: 2;
 
       h2 {
         margin: 0;
-        font-weight: 600;
+        font-weight: $font-weight-bolder;
         font-size: 2.25rem;
         color: $secondary;
 
@@ -184,8 +181,8 @@
 
         span {
           color: $text-color;
-          font-size: 16px;
-          font-weight: 600;
+          font-size: 1rem;
+          font-weight: $font-weight-bolder;
           text-transform: uppercase;
           margin: 0
         }
@@ -193,10 +190,10 @@
 
       .button {
         color: white;
-        margin-top: 10px;
+        margin-top: $space-unit * 2;
         background-color: $secondary;
         text-transform: uppercase;
-        padding: 10px 20px;
+        padding: $space-unit * 2 $space-unit * 4;
         font-weight: 600;
         align-self: flex-start;
       }
@@ -204,7 +201,7 @@
 
     .staticImageBox {
       position: relative;
-      padding: 25px 25px 0 25px;
+      padding: $space-unit * 5 $space-unit * 5 0 $space-unit * 5;
       margin-top: auto;
 
     }
@@ -225,7 +222,7 @@
       .promoSectionContent {
         height: 100%;
         transform: none;
-        padding: 5px 15px 15px;
+        padding: $space-unit $space-unit * 3 $space-unit * 3;
         gap: 0;
 
 
@@ -242,7 +239,7 @@
         position: relative;
         padding: 0;
         margin-top: 0;
-        
+
           .image {
             object-fit: cover;
           }
@@ -253,11 +250,11 @@
   @media (max-width: 475px) {
     .galleryContent {
       .productData {
-        padding: 15px 25px;
+        padding: $space-unit * 3 $space-unit * 5;
 
         .promotionInfo {
           top: -70%;
-          padding: 10px;
+          padding: $space-unit * 2;
 
           p {
             &:first-of-type {
@@ -272,19 +269,7 @@
     }
 
     .galleryNav {
-      font-size: .75rem;
+      font-size: 0.75rem;
     }
-  }
-}
-
-@keyframes changePage {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }

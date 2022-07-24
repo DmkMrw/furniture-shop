@@ -1,34 +1,31 @@
 import React from 'react';
 import styles from './BrandsBox.module.scss';
+import Carousel from '../../common/Carousel/Carousel';
+import clsx from 'clsx';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getAllBrands } from '../../../redux/brandsRedux';
+import SectionHeading from '../../common/SectionHeading/SectionHeading';
+import { contentRefreshDelayInMs } from '../../../constants';
 
 const BrandsBox = () => {
+  const [fade, setFade] = useState(false);
+  const brands = useSelector(state => getAllBrands(state));
+
+  const handleFade = () => {
+    setFade(true);
+    setTimeout(() => {
+      setFade(false);
+    }, contentRefreshDelayInMs);
+  };
   return (
-    <div className='container'>
-      <hr />
-      <div className={styles.brandsWrapper}>
-        <div className={styles.button}>
-          <span className={styles.arrow}>&lt;</span>
-        </div>
-        <div className={styles.imgSize}>
-          <img src={`${process.env.PUBLIC_URL}/images/brand1.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand2.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand3.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand2.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand3.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand1.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand2.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand3.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand2.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand3.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand2.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand3.png`} />
-          <img src={`${process.env.PUBLIC_URL}/images/brand1.png`} />
-        </div>
-        <div className={styles.button}>
-          <span className={styles.arrow}>&gt;</span>
+    <div className={styles.root}>
+      <div className='container'>
+        <SectionHeading text={'Brands'} />
+        <div className={clsx('col-12 px-0', fade && styles.fade)}>
+          <Carousel products={brands} handleParentFade={handleFade} parentFade={fade} />
         </div>
       </div>
-      <hr />
     </div>
   );
 };
