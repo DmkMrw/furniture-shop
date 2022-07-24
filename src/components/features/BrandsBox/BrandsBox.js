@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getAllBrands } from '../../../redux/brandsRedux';
 import SectionHeading from '../../common/SectionHeading/SectionHeading';
+import { contentRefreshDelayInMs } from '../../../constants';
 
 const BrandsBox = () => {
   const [fade, setFade] = useState(false);
@@ -15,7 +16,7 @@ const BrandsBox = () => {
     setFade(true);
     setTimeout(() => {
       setFade(false);
-    }, 500);
+    }, contentRefreshDelayInMs);
   };
   return (
     <div className={styles.root}>
