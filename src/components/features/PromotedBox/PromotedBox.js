@@ -10,9 +10,7 @@ const PromotedBox = () => {
             <div className={styles.shadow}>
               <div className={styles.description}>
                 <span className={styles.smallFont}>GUEST ROOM</span>
-                <br />
                 <span>SOFA</span>
-                <br />
                 <span className={styles.percent}>-20%</span>
               </div>
             </div>

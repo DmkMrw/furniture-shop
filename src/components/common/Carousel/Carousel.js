@@ -9,7 +9,7 @@ import { WidthContext } from '../../layout/MainLayout/MainLayout';
 import {
   fadeDurationInMs,
   contentRefreshDelayInMs,
-  mobileBreakpoint,
+  smallMobileBreakpoint,
   desktopBreakpoint,
   mobileItemsPerPage,
   tabletItemsPerPage,
@@ -25,7 +25,7 @@ const Carousel = ({ products, action, parentFade, handleParentFade }) => {
   const [fade, setFade] = useState(false);
 
   const detectScreenWidth = width => {
-    width <= mobileBreakpoint
+    width <= smallMobileBreakpoint
       ? setProductsPerPage(mobileItemsPerPage)
       : width <= desktopBreakpoint
       ? setProductsPerPage(tabletItemsPerPage)

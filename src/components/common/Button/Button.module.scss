@@ -1,21 +1,18 @@
 @import "../../../styles/settings.scss";
 
-// .root {
-// }
-
 .additionalData {
   position: absolute;
   background-color: $button-main;
-  left: calc(100% + 10px);
+  left: calc(100% + $space-unit * 2);
   color: $color-white;
-  padding: 2.5px 10px;
+  padding: $space-unit * 0.5 $space-unit * 2;
   white-space: nowrap;
   top: 50%;
   transform: translateY(-50%);
   display: none;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     left: -4px;
     transform: translateY(-50%) rotate(-45deg);
@@ -29,35 +26,32 @@
 .main {
   background-color: $button-main;
   color: $color-white;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 600;
-  padding: 10px 30px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: $font-weight-bolder;
+  padding: $space-unit * 2 $space-unit * 6;
 }
 
 .medium {
   @extend .main;
-  font-size: 14px;
-  line-height: 24px;
-  padding: 10px 15px;
-  font-weight: 400;
+  font-size: 0.875rem;
+  padding: $space-unit * 2 $space-unit * 3;
+  font-weight: $font-weight-normal;
 }
 
 .small {
   @extend .main;
-  font-size: 13px;
-  line-height: 24px;
-  padding: 5px 10px;
-  font-weight: 400;
+  font-size: $button-font-size;
+  padding: $space-unit $space-unit * 2;
+  font-weight: $font-weight-normal;
 }
 
 .outline {
   display: inline-block;
-  padding: 5px 10px;
+  padding: $space-unit $space-unit * 2;
   border: 1px solid $button-main;
   color: $text-color;
-  font-size: 13px;
-  line-height: 22px;
+  font-size: $button-font-size;
 }
 
 @media (min-width: 992px) {
@@ -86,7 +80,7 @@
 }
 
 a {
-  position: relative; 
+  position: relative;
 
   &.active {
     background: $primary;

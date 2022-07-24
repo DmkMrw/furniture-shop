@@ -1,7 +1,7 @@
 @import "../../../styles/settings.scss";
 
 .root {
-  box-shadow: 2px 3.464px 6px rgba(1, 2, 2, 0.2);
+  box-shadow: $menu-bar-shadow;
   background-color: $color-white;
   display: flex;
 
@@ -32,13 +32,13 @@
     a {
       color: $text-color;
       text-transform: uppercase;
-      font-size: 12px;
+      font-size: 0.75rem;
       padding: 1rem;
       text-decoration: none;
       display: flex;
       align-items: center;
-      border-top: 4px solid $color-white;
-      font-weight: 500;
+      border-top: $furniture-container-border solid $color-white;
+      font-weight: $font-weight-normal-bold;
       letter-spacing: 1px;
 
       &:hover,
@@ -60,7 +60,7 @@
 
   .dropdownButton {
     display: none;
-    padding: 5px;
+    padding: $space-unit;
     align-self: flex-end;
   }
 
@@ -82,7 +82,7 @@
   @media (max-width: 768px) {
     :global(.container) > :global(.row) {
       position: relative;
-      padding-inline: 10px;
+      padding-inline: $space-unit * 2;
     }
 
     .menu {
@@ -127,9 +127,9 @@
 
     .dropdownButton {
       display: inline-block;
-      border-radius: 4px;
+      border-radius: $furniture-container-border;
       margin: auto 0;
-      padding-inline: 10px;
+      padding-inline: $space-unit * 2;
       align-self: stretch;
     }
 
@@ -139,7 +139,7 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: nowrap;
-      width: calc(100% - 10px);
+      width: calc(100% - $space-unit * 2);
     }
   }
 }

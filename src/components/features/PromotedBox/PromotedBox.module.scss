@@ -6,7 +6,6 @@
   height: 100%;
   box-sizing: border-box;
   width: 100%;
-  font-family: Arial, Helvetica, sans-serif;
 
   .wrapper {
     display: flex;
@@ -19,7 +18,8 @@
       width: 50%;
       height: 100%;
       font-weight: bold;
-      font-size: 40px;
+      font-size: 2.5rem;
+
       .shadow {
         position: absolute;
         width: 90%;
@@ -27,19 +27,25 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: rgba(84, 84, 84, 0.6);
+        background-color: $color-dark-transparent;
+
         .description {
-          padding: 10px;
+          padding: $space-unit * 2;
           position: absolute;
           left:0;
           bottom: 0;
+
+          span {
+            display: block;
+          }
+
           .smallFont {
             font-size: 20px;
             margin-bottom: 0;
           }
           .percent {
           border: 3px solid $color-white;
-          padding: 5px;
+          padding: $space-unit;
         }
         }
 
@@ -54,7 +60,8 @@
       justify-content: space-between;
       width: 49%;
       max-height: 370px;
-              img {
+      
+        img {
         height: 100%;
         width: 100%;
         object-fit: cover;

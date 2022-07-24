@@ -10,17 +10,17 @@
   .phoneNumber {
     p {
       margin: 0;
-      font-size: 17px;
-      line-height: 42px;
-      color: rgb(216, 216, 216);
-      font-weight: 500;
+      font-size: 1rem;
+      line-height: 2.5rem;
+      color: $company-claim-text;
+      font-weight: $font-weight-normal-bold;
 
       .icon {
-        font-size: 32px;
+        font-size: 2rem;
         color: $primary;
         vertical-align: middle;
-        margin-top: -3px;
-        margin-right: 0.8rem;
+        margin-top: -$space-unit * 0.5;
+        margin-right: $space-unit * 3;
       }
     }
   }
@@ -42,10 +42,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 20px;
+        font-size: 1.25rem;
 
         .icon {
-          margin-right: 5px;
+          margin-right: $space-unit;
         }
       }
 
@@ -59,8 +59,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
-        color: rgb(224, 227, 237);
+        font-size: 0.875rem;
+        color: $company-claim-cart-color;
         position: absolute;
         top: 50%;
         right: 0;
@@ -78,17 +78,11 @@
   @media all and (max-width: 768px) {
 
     .phoneNumber {
-      width: auto;
-      position: absolute;
-      top: 70%;
-      right: 0;
+      display: none;
 
       p {
-        font-size: 14px;
+        font-size: 0.875rem;
       }
-    }
-    .cart{
-      height: 53%;
     }
   }
 }

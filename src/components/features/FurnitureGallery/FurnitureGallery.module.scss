@@ -73,9 +73,9 @@
         top: 0;
         left: 0;
         content: '';
-        border: 15px solid transparent;
-        border-top: 15px solid $text-color;
-        border-left: 15px solid $text-color;
+        border: $product-decoration-width solid transparent;
+        border-top: $product-decoration-width solid $text-color;
+        border-left: $product-decoration-width solid $text-color;
       }
 
       &::before {
@@ -83,9 +83,9 @@
         bottom: 0;
         right: 0;
         content: '';
-        border: 15px solid transparent;
-        border-bottom: 15px solid $text-color;
-        border-right: 15px solid $text-color;
+        border: $product-decoration-width solid transparent;
+        border-bottom: $product-decoration-width solid $text-color;
+        border-right: $product-decoration-width solid $text-color;
       }
 
       h5 {
@@ -194,7 +194,7 @@
         background-color: $secondary;
         text-transform: uppercase;
         padding: $space-unit * 2 $space-unit * 4;
-        font-weight: 600;
+        font-weight: $font-weight-bolder;
         align-self: flex-start;
       }
     }

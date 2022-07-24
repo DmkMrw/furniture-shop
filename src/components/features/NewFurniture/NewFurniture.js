@@ -7,20 +7,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import Swipeable from '../../common/Swipeable/Swipeable';
 import { WidthContext } from '../../layout/MainLayout/MainLayout';
+import clsx from 'clsx';
 
-import { getAll } from '../../../redux/categoriesRedux.js';
-import { getNew } from '../../../redux/productsRedux.js';
-import { useSelector } from 'react-redux';
 import SliderDots from '../../common/SliderDots/SliderDots';
+import { useRecoilValue } from 'recoil';
+import { productsState } from '../../../recoil/productsAtom';
+import { categoriesState } from '../../../recoil/categoriesAtom';
+import {
+  mobileBreakpoint,
+  tabletBreakpoint,
+  desktopBreakpoint,
+  productsPerPageDesktop,
+  productsPerPageLaptop,
+  productsPerPageMobile,
+  productsPerPageTablet,
+  fadeDurationInMs,
+  contentRefreshDelayInMs,
+} from '../../../constants';
 
 const NewFurniture = () => {
+  const categories = useRecoilValue(categoriesState);
+  const products = useRecoilValue(productsState);
   const [activePage, setActivePage] = useState(0);
-  const [activeCategory, setActiveCategory] = useState('bed');
+  const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [isFaded, setIsFaded] = useState(false);
-  const categories = useSelector(state => getAll(state));
-  const products = useSelector(state => getNew(state));
   const windowWidth = useContext(WidthContext);
-  const [productsPerPage, setProductsPerPage] = useState(8);
+  const [productsPerPage, setProductsPerPage] = useState(productsPerPageDesktop);
   const categoryProducts = products.filter(item => item.category === activeCategory);
   const pagesCount = Math.ceil(categoryProducts.length / productsPerPage);
 
@@ -32,19 +44,23 @@ const NewFurniture = () => {
   }, [windowWidth, activePage, pagesCount]);
 
   const detectScreenWidth = width => {
-    width <= 768
-      ? setProductsPerPage(2)
-      : width <= 992
-      ? setProductsPerPage(4)
-      : width <= 1200
-      ? setProductsPerPage(6)
-      : setProductsPerPage(8);
+    width <= mobileBreakpoint
+      ? setProductsPerPage(productsPerPageMobile)
+      : width <= tabletBreakpoint
+      ? setProductsPerPage(productsPerPageTablet)
+      : width <= desktopBreakpoint
+      ? setProductsPerPage(productsPerPageLaptop)
+      : setProductsPerPage(productsPerPageDesktop);
+  };
+
+  const handleFade = () => {
+    setIsFaded(true);
+    setTimeout(() => setIsFaded(false), fadeDurationInMs);
   };
 
   const handlePageChange = pageToSet => {
-    setIsFaded(true);
-    setTimeout(() => setIsFaded(false), 1000);
-    setTimeout(() => setActivePage(pageToSet), 500);
+    handleFade();
+    setTimeout(() => setActivePage(pageToSet), contentRefreshDelayInMs);
   };
 
   return (
@@ -61,18 +77,21 @@ const NewFurniture = () => {
                 <ul>
                   {categories.map(item => (
                     <li key={item.id}>
-                      <a
-                        className={`${
-                          item.id === activeCategory ? styles.active : ''
-                        } ${isFaded ? styles.disabled : ''}`}
+                      <button
+                        className={clsx(
+                          item.id === activeCategory && styles.active,
+                          isFaded && styles.disabled
+                        )}
                         onClick={() => {
-                          setIsFaded(true);
-                          setTimeout(() => setIsFaded(false), 1000);
-                          setTimeout(() => setActiveCategory(item.id), 500);
+                          handleFade();
+                          setTimeout(
+                            () => setActiveCategory(item.id),
+                            contentRefreshDelayInMs
+                          );
                         }}
                       >
                         {item.name}
-                      </a>
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -92,7 +111,7 @@ const NewFurniture = () => {
           </div>
         </div>
         <Swipeable action={setActivePage} page={activePage} pagesNumber={pagesCount}>
-          <div className={`row ${isFaded ? styles.faded : ''}`}>
+          <div className={clsx('row', isFaded && styles.faded)}>
             {categoryProducts
               .slice(activePage * productsPerPage, (activePage + 1) * productsPerPage)
               .map(item => (

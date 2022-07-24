@@ -15,14 +15,14 @@
       position: absolute;
       transform: translateY(-50%);
       background-color: $color-white;
-      padding-left: 15px;
+      padding-left: $space-unit * 3;
       top: 100%;
       right: 0;
     };
   };
 
   .feedbackBox {
-    padding: 0 60px 30px;
+    padding: 0 $space-unit * 12 $space-unit * 6;
 
     .decoration {
       font-size: $feedback-decoration-font;
