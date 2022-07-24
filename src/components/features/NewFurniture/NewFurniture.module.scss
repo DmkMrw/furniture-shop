@@ -9,7 +9,7 @@
     padding-top: $space-unit * 3;
 
     :global(.row) > *:not(:where(.dotsLayout)) {
-      border-bottom: 4px solid $furniture-container-border;
+      border-bottom: $container-border-width solid $furniture-container-border;
     }
 
     .heading {
