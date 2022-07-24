@@ -10,16 +10,25 @@ import ComparedProductCard from '../../features/ComparedProductCard/ComparedProd
 
 import styles from './ProductComparator.module.scss';
 
-const ProductComparator = () => {
-  const comparedProductsCount = useSelector(state => getCountOfCompared(state));
+import { comparedProductsState } from '../../../recoil/productComparatorAtom';
+import { comparedProductsCounter } from '../../../recoil/productComparatorAtom';
+import { useRecoilValue } from 'recoil';
 
-  const comparedProducts = useSelector(state => getAllCompared(state));
+const ProductComparator = () => {
+  // const comparedProductsCount = useSelector(state => getCountOfCompared(state));
+  // const comparedProducts = useSelector(state => getAllCompared(state));
+
+  const comparedProductsCount = useRecoilValue(comparedProductsCounter);
+  const comparedProducts = useRecoilValue(comparedProductsState);
+
+  console.log('comparedProductsCount', comparedProductsCount);
+  console.log('comparedProducts', comparedProducts.products);
 
   return (
     <div className={clsx(styles.root, comparedProductsCount < 2 && styles.hidden)}>
       <div className={styles.container}>
         <div className={styles.comparedCards}>
-          {comparedProducts.map(product => (
+          {comparedProducts.products.map(product => (
             <ComparedProductCard
               key={product.id}
               id={product.id}
