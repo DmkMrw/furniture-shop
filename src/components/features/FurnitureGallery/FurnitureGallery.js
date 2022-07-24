@@ -4,12 +4,8 @@ import styles from './FurnitureGallery.module.scss';
 import Button from '../../common/Button/Button';
 import Carousel from '../../common/Carousel/Carousel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar as farStar, faHeart, faEye } from '@fortawesome/free-regular-svg-icons';
-import {
-  faExchangeAlt,
-  faShoppingBasket,
-  faStar,
-} from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faEye } from '@fortawesome/free-regular-svg-icons';
+import { faExchangeAlt, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { getProductById, getProductsGroup } from '../../../redux/productsRedux';
 import { getById } from '../../../redux/galleryRedux';
@@ -25,6 +21,11 @@ import {
   getCountOfCompared,
 } from '../../../redux/comparedProductsRedux';
 import StarRating from '../StarRating/StarRating';
+import {
+  contentRefreshDelayInMs,
+  fadeDurationInMs,
+  comparedProductsLimit,
+} from '../../../constants';
 
 const FurnitureGallery = () => {
   const galleryNavHeadings = ['Featured', 'Top Seller', 'Sale off', 'Top rated'];
@@ -59,7 +60,7 @@ const FurnitureGallery = () => {
     setFade(true);
     setTimeout(() => {
       setFade(false);
-    }, 1000);
+    }, fadeDurationInMs);
   };
 
   const handleClick = e => {
@@ -74,11 +75,11 @@ const FurnitureGallery = () => {
       dispatch(toggleCompareProduct(id));
       dispatch(removeFromCompare(id));
     } else {
-      if (count < 4) {
+      if (count < comparedProductsLimit) {
         dispatch(addToCompare(id));
         dispatch(toggleCompareProduct(id));
       } else {
-        alert('Max number of compared products is 4'); // change to final alert modal
+        alert(`Max number of compared products is ${comparedProductsLimit}`); // change to final alert modal
       }
     }
   };
@@ -98,7 +99,7 @@ const FurnitureGallery = () => {
                       handleFade();
                       setTimeout(() => {
                         setCurrentPageId(idx);
-                      }, 500);
+                      }, contentRefreshDelayInMs);
                     }}
                     disabled={fade}
                     key={idx}

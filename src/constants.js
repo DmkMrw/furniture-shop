@@ -8,3 +8,5 @@ export const desktopBreakpoint = 1200;
 export const mobileItemsPerPage = 3;
 export const tabletItemsPerPage = 5;
 export const desktopItemsPerPage = 6;
+//product comparator variables
+export const comparedProductsLimit = 4;
