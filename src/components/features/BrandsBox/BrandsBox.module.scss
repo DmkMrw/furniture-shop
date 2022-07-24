@@ -3,11 +3,12 @@
 .brandsWrapper{
   display: flex;
   justify-content: space-between;
+  // overflow: hidden;
   .button {
     position: relative;
     color: $color-white;
     height: 80px;
-    width: 25px;
+    min-width: 23px;
     background-color: $button-main;
     .arrow{
       position: absolute;

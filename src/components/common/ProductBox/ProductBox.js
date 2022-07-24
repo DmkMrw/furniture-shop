@@ -20,6 +20,7 @@ import {
 import Timer from '../Timer/Timer';
 import { Link } from 'react-router-dom';
 import ProductPopup from '../../features/ProductPopup/ProductPopup';
+import { addProduct } from '../../../redux/cartRedux';
 
 const ProductBox = ({
   name,
@@ -82,7 +83,7 @@ const ProductBox = ({
         </Link>
         {isFeatured && (
           <div className={styles.additionalInfo}>
-            <Button variant='medium'>
+            <Button onClick={() => dispatch(addProduct(id))} variant='medium'>
               <FontAwesomeIcon icon={faShoppingBasket}></FontAwesomeIcon> ADD TO CART
             </Button>
             <div className={styles.timerLayout}>
