@@ -3,7 +3,7 @@
 .root {
   background-color: $color-white;
   border: 1px solid #e1e1e1;
-  margin-bottom: 2rem;
+  margin-bottom: $space-unit * 6;
 
   .photo {
     position: relative;
@@ -27,7 +27,7 @@
       width: 100%;
       aspect-ratio: 1 / 1;
       object-fit: contain;
-      padding: 10px;
+      padding: $space-unit * 2;
     }
 
     .sale {
@@ -38,7 +38,8 @@
       background-color: $form-border-color;
       border-radius: 50%;
       color: $color-white;
-      padding: 30px 15px 5px 15px;
+      padding: $space-unit * 6 $space-unit * 3 $space-unit $space-unit * 3;
+      z-index: 2;
     }
 
     .buttons {
@@ -71,12 +72,12 @@
 
   .content {
     text-align: center;
-    padding: 20px;
+    padding: $space-unit * 4;
 
     h5 {
       color: $primary;
-      font-size: 16px;
-      line-height: 24px;
+      font-size: 1rem;
+      line-height: 1.5rem;
       letter-spacing: 1px;
     }
     .link {
@@ -87,13 +88,13 @@
     .stars {
       a {
         text-decoration: none;
-        color: rgb(42, 42, 42);
+        color: $stars-color;
       }
     }
   }
 
   .line {
-    margin: 0 10px;
+    margin: 0 $space-unit * 2;
     border-bottom: 1px solid $text-color;
     position: relative;
 
@@ -103,7 +104,7 @@
       bottom: -1px;
       left: 50%;
       width: 30px;
-      border-bottom: 4px solid $primary;
+      border-bottom: $container-border-width solid $primary;
       transform: translateX(-50%);
     }
   }
@@ -113,11 +114,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 3px;
+    gap: $space-unit * 0.5;
 
     .outlines {
       display: flex;
-      gap: 3px;
+      gap: $space-unit * 0.5;
     }
 
     .buttonHover {
@@ -137,7 +138,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     :first-child {
-      margin-right: 3px;
+      margin-right: $space-unit * 0.5;
     }
   }
 
