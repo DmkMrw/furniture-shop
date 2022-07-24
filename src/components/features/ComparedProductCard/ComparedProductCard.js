@@ -5,16 +5,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import { toggleCompareProduct } from '../../../redux/productsRedux';
-import { removeFromCompare } from '../../../redux/comparedProductsRedux';
 import styles from './ComparedProductCard.module.scss';
+
+import { comparedProductsState } from '../../../recoil/productComparatorAtom';
+import { useRecoilState } from 'recoil';
 
 const ComparedProductCard = ({ id, image }) => {
   const dispatch = useDispatch();
 
+  const [comparedProduct, setComparedProduct] = useRecoilState(comparedProductsState);
+
+  const payload = {
+    id: id,
+    image: image,
+  };
+
   const removeCompare = e => {
     e.preventDefault();
     dispatch(toggleCompareProduct(id));
-    dispatch(removeFromCompare(id));
+    setComparedProduct({
+      ...comparedProduct,
+      products: comparedProduct.products.filter(product => product.id !== payload.id),
+    });
   };
 
   return (

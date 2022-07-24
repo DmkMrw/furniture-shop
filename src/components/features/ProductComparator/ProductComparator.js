@@ -1,25 +1,25 @@
 import React from 'react';
 import clsx from 'clsx';
-import { useSelector } from 'react-redux';
-import {
-  getCountOfCompared,
-  getAllCompared,
-} from '../../../redux/comparedProductsRedux';
 import Button from '../../common/Button/Button';
 import ComparedProductCard from '../../features/ComparedProductCard/ComparedProductCard';
 
 import styles from './ProductComparator.module.scss';
 
-const ProductComparator = () => {
-  const comparedProductsCount = useSelector(state => getCountOfCompared(state));
+import {
+  comparedProductsState,
+  comparedProductsCounter,
+} from '../../../recoil/productComparatorAtom';
+import { useRecoilValue } from 'recoil';
 
-  const comparedProducts = useSelector(state => getAllCompared(state));
+const ProductComparator = () => {
+  const comparedProducts = useRecoilValue(comparedProductsState);
+  const comparedProductsCount = useRecoilValue(comparedProductsCounter);
 
   return (
     <div className={clsx(styles.root, comparedProductsCount < 2 && styles.hidden)}>
       <div className={styles.container}>
         <div className={styles.comparedCards}>
-          {comparedProducts.map(product => (
+          {comparedProducts.products.map(product => (
             <ComparedProductCard
               key={product.id}
               id={product.id}
