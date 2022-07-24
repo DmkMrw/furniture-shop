@@ -11,19 +11,20 @@ import {
 import { faStar as farStar, faHeart, faEye } from '@fortawesome/free-regular-svg-icons';
 import Button from '../Button/Button';
 import StarRating from '../../features/StarRating/StarRating';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   toggleFavoriteProduct,
   toggleCompareProduct,
 } from '../../../redux/productsRedux';
-import {
-  addToCompare,
-  removeFromCompare,
-  getCountOfCompared,
-} from '../../../redux/comparedProductsRedux';
 import Timer from '../Timer/Timer';
 import { Link } from 'react-router-dom';
 import { addProduct } from '../../../redux/cartRedux';
+
+import { useRecoilState, useRecoilValue } from 'recoil';
+import {
+  comparedProductsState,
+  comparedProductsCounter,
+} from '../../../recoil/productComparatorAtom';
 
 const ProductBox = ({
   name,
@@ -44,7 +45,9 @@ const ProductBox = ({
     e.preventDefault();
     dispatch(toggleFavoriteProduct(id));
   };
-  const count = useSelector(state => getCountOfCompared(state));
+
+  const [comparedProduct, setComparedProduct] = useRecoilState(comparedProductsState);
+  const count = useRecoilValue(comparedProductsCounter);
 
   const payload = {
     id: id,
@@ -55,10 +58,16 @@ const ProductBox = ({
     e.preventDefault();
     if (isCompared) {
       dispatch(toggleCompareProduct(id));
-      dispatch(removeFromCompare(id));
+      setComparedProduct({
+        ...comparedProduct,
+        products: comparedProduct.products.filter(product => product.id !== payload.id),
+      });
     } else {
       if (count < 4) {
-        dispatch(addToCompare(payload));
+        setComparedProduct({
+          ...comparedProduct,
+          products: [...comparedProduct.products, payload],
+        });
         dispatch(toggleCompareProduct(payload.id));
       } else {
         alert('Max number of compared products is 4'); // change to final alert modal
