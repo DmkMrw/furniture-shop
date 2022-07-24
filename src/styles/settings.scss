@@ -3,8 +3,9 @@ $section-padding : 1rem 0;
 
 $space-unit: 5px;
 
+$font-weight-bold: 700;
 $font-weight-bolder: 600;
-$font-weight-bold: 300;
+$font-weight-light: 300;
 
 $header-topbar-bg: #434343;
 $header-bg: #363636;
@@ -24,7 +25,11 @@ $button-main: #2a2a2a;
 $product-border-color: #b6b6b6;
 $product-image-bg: #f4f5f7;
 
+$product-data-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+
 $gallery-background-color: #EAF6F6;
+
+$stars-color: rgb(42, 42, 42);
 
 $furniture-container-border: #e2e2e2;
 $container-border-width: 4px;
