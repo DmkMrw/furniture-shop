@@ -74,7 +74,7 @@
             width: 100%;
             margin: 0;
             height: 45px;
-            padding: 0px 15px;
+            padding: 0px $space-unit * 3;
             cursor: pointer;
           }
         }
@@ -88,8 +88,8 @@
 
     input {
       border: 0;
-      padding-left: 10px;
-      font-size: 14px;
+      padding-left: $space-unit * 2;
+      font-size: 0.875rem;
       outline: none;
       width: 100%;
 
@@ -123,7 +123,7 @@
     .searchField {
       border-bottom: 1px solid $form-border-color;
       border-inline: 10px solid transparent;
-      padding-left: 15px;
+      padding-left: $space-unit * 3;
     }
   }
 }
