@@ -3,14 +3,14 @@ import styles from './BrandsBox.module.scss';
 import Carousel from '../../common/Carousel/Carousel';
 import clsx from 'clsx';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { getAllBrands } from '../../../redux/brandsRedux';
 import SectionHeading from '../../common/SectionHeading/SectionHeading';
 import { contentRefreshDelayInMs } from '../../../constants';
+import { allBrands } from '../../../recoil/brandsAtom';
+import { useRecoilValue } from 'recoil';
 
 const BrandsBox = () => {
   const [fade, setFade] = useState(false);
-  const brands = useSelector(state => getAllBrands(state));
+  const brands = useRecoilValue(allBrands);
 
   const handleFade = () => {
     setFade(true);
