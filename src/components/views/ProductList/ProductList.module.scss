@@ -5,7 +5,7 @@
 
   .banner {
     text-align: center;
-    padding: 15px 0;
+    padding: $space-unit * 3 0;
   };
 
   .productList{
@@ -18,7 +18,7 @@
 
   .brands {
     text-align: center;
-    padding: 15px 0;
+    padding: $space-unit * 3 0;
   }
 }
 
