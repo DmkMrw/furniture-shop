@@ -10,7 +10,7 @@
 
     li {
       display: inline-block;
-      line-height: 55px;
+      padding-block: $space-unit * 4;
 
       &:hover {
         @include base-hover-animation;
@@ -18,7 +18,7 @@
 
       a {
         color: $color-white;
-        font-size: 13px;
+        font-size: $button-font-size;
 
         &:hover {
           color: $primary;
@@ -29,23 +29,31 @@
   }
 
   .topOptions ul li {
-    margin-right: 1.5rem;
+    margin-right: $space-unit * 4;
 
     .icon {
-      margin-left: 5px;
+      margin-left: $space-unit;
     }
   }
 
   .topMenu ul li {
-    margin-left: 1.5rem;
+    margin-left: $space-unit * 4;
 
     .icon {
-      margin-right: 5px;
+      margin-right: $space-unit;
     }
   }
 }
 @media (max-width: 768px) {
   .login, .register {
     font-size: 0;
+  }
+
+  .root {
+    ul {
+      li {
+        padding-block: $space-unit * 2;
+      }
+    }
   }
 }
