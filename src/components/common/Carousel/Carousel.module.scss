@@ -2,10 +2,10 @@
 
 .images {
   display: grid;
-  gap: 5px;
+  gap: $space-unit;
   overflow: hidden;
   grid-template-columns: repeat(6, 1fr);
-  margin-inline: 5px;
+  margin-inline: $space-unit;
 
   .imageContainer {
     border: 0;
@@ -18,7 +18,7 @@
 
     img {
       background-color: $furniture-container-border;
-      padding: 5px;
+      padding: $space-unit;
       height: 100%;
       width: 100%;
       object-fit: contain;
