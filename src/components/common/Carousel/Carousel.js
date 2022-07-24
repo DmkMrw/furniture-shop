@@ -86,12 +86,12 @@ const Carousel = ({ products, action, parentFade, handleParentFade }) => {
                 );
               }
               return (
-                <button className={styles.imageContainer} key={elem.id}>
+                <div className={styles.imageContainer} key={elem.id}>
                   <img
                     src={`${process.env.PUBLIC_URL}/images/image${elem.image}.png`}
                     alt='carousel-preview'
                   />
-                </button>
+                </div>
               );
             })}
         </div>
