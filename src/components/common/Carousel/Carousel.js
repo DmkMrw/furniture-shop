@@ -64,26 +64,36 @@ const Carousel = ({ products, action, parentFade, handleParentFade }) => {
         <div className={clsx(styles.images, fade && styles.fade)}>
           {products
             .slice(productsPerPage * currentPage, productsPerPage * (currentPage + 1))
-            .map(elem => (
-              <button
-                onClick={() => {
-                  if (action) {
-                    handleParentFade();
-                    setTimeout(() => {
-                      action(elem.id);
-                    }, contentRefreshDelayInMs);
-                  }
-                }}
-                disabled={parentFade || !action}
-                className={styles.imageContainer}
-                key={elem.id}
-              >
-                <img
-                  src={`${process.env.PUBLIC_URL}/images/image${elem.image}.png`}
-                  alt='carousel-preview'
-                />
-              </button>
-            ))}
+            .map(elem => {
+              if (action) {
+                return (
+                  <button
+                    onClick={() => {
+                      handleParentFade();
+                      setTimeout(() => {
+                        action(elem.id);
+                      }, contentRefreshDelayInMs);
+                    }}
+                    disabled={parentFade || !action}
+                    className={styles.imageContainer}
+                    key={elem.id}
+                  >
+                    <img
+                      src={`${process.env.PUBLIC_URL}/images/image${elem.image}.png`}
+                      alt='carousel-preview'
+                    />
+                  </button>
+                );
+              }
+              return (
+                <button className={styles.imageContainer} key={elem.id}>
+                  <img
+                    src={`${process.env.PUBLIC_URL}/images/image${elem.image}.png`}
+                    alt='carousel-preview'
+                  />
+                </button>
+              );
+            })}
         </div>
       </Swipeable>
       <CarouselButton
