@@ -1,14 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import styles from './ProductBox.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faStar,
-  faExchangeAlt,
-  faShoppingBasket,
-} from '@fortawesome/free-solid-svg-icons';
-import { faStar as farStar, faHeart, faEye } from '@fortawesome/free-regular-svg-icons';
+import { faExchangeAlt, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { faStar as faHeart, faEye } from '@fortawesome/free-regular-svg-icons';
 import Button from '../Button/Button';
 import StarRating from '../../features/StarRating/StarRating';
 import { useDispatch } from 'react-redux';
@@ -18,6 +14,7 @@ import {
 } from '../../../redux/productsRedux';
 import Timer from '../Timer/Timer';
 import { Link } from 'react-router-dom';
+import ProductPopup from '../../features/ProductPopup/ProductPopup';
 import { addProduct } from '../../../redux/cartRedux';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
@@ -75,6 +72,13 @@ const ProductBox = ({
     }
   };
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const togglePopup = e => {
+    e.preventDefault();
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className={styles.root}>
       <div className={styles.photo}>
@@ -98,14 +102,15 @@ const ProductBox = ({
         )}
         {!isFeatured && (
           <div className={styles.buttons}>
-            <Button variant='small'>Quick View</Button>
+            <Button variant='small' onClick={togglePopup}>
+              Quick View
+            </Button>
             <Button variant='small'>
               <FontAwesomeIcon icon={faShoppingBasket}></FontAwesomeIcon> ADD TO CART
             </Button>
           </div>
         )}
       </div>
-
       <div className={styles.content}>
         <Link to={'/product/' + id} className={styles.link}>
           <h5>{name}</h5>
@@ -150,6 +155,18 @@ const ProductBox = ({
           </Button>
         </div>
       </div>
+      {isOpen && (
+        <ProductPopup
+          image={`/images/image${image}.png`}
+          name={name}
+          price={price}
+          id={id}
+          ownStars={ownStars}
+          stars={stars}
+          oldPrice={oldPrice}
+          handleClose={togglePopup}
+        />
+      )}
     </div>
   );
 };
