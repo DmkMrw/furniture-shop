@@ -61,6 +61,7 @@ export const galleryState = atom({
 export const getGallerySetById = selectorFamily({
   key: 'galleryProductSet',
   get: id => ({ get }) => {
-    return get(galleryState.find(set => set.id === id));
+    const gallerySetById = get(galleryState).find(set => set.id === id);
+    return gallerySetById.productIds;
   },
 });
