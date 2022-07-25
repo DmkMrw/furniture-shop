@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import SectionHeading from '../../common/SectionHeading/SectionHeading';
 import styles from './FurnitureGallery.module.scss';
 import Button from '../../common/Button/Button';
@@ -6,31 +6,29 @@ import Carousel from '../../common/Carousel/Carousel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faEye } from '@fortawesome/free-regular-svg-icons';
 import { faExchangeAlt, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux';
-import { getProductById, getProductsGroup } from '../../../redux/productsRedux';
-import { getById } from '../../../redux/galleryRedux';
 import clsx from 'clsx';
-import { useDispatch } from 'react-redux';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { getGallerySetById } from '../../../recoil/galleryAtom';
 import {
-  toggleFavoriteProduct,
-  toggleCompareProduct,
-} from '../../../redux/productsRedux';
-import {
-  removeFromCompare,
-  addToCompare,
-  getCountOfCompared,
-} from '../../../redux/comparedProductsRedux';
+  getProductById,
+  getProductsGroup,
+  productsState,
+} from '../../../recoil/productsAtom';
 import StarRating from '../StarRating/StarRating';
 import {
   contentRefreshDelayInMs,
   fadeDurationInMs,
   comparedProductsLimit,
 } from '../../../constants';
+import {
+  comparedProductsCounter,
+  comparedProductsState,
+} from '../../../recoil/productComparatorAtom';
 
 const FurnitureGallery = () => {
   const galleryNavHeadings = ['Featured', 'Top Seller', 'Sale off', 'Top rated'];
   const [currentPageId, setCurrentPageId] = useState(1);
-  const [{ productIds }] = useSelector(state => getById(state, currentPageId));
+  const productIds = useRecoilValue(getGallerySetById(currentPageId));
   const [currentProduct, setCurrentProduct] = useState(productIds[0]);
   const {
     id,
@@ -42,13 +40,11 @@ const FurnitureGallery = () => {
     isCompared,
     ownStars,
     stars,
-  } = useSelector(state => getProductById(state, currentProduct));
-  const productsToDisplay = useCallback(
-    useSelector(state => getProductsGroup(state, productIds)),
-    [productIds]
-  );
+  } = useRecoilValue(getProductById(currentProduct));
+  const productsToDisplay = useRecoilValue(getProductsGroup(productIds));
 
-  const dispatch = useDispatch();
+  const [productsData, setProductsData] = useRecoilState(productsState);
+  const [comparedProducts, setComparedProducts] = useRecoilState(comparedProductsState);
 
   useEffect(() => {
     setCurrentProduct(productIds[0]);
@@ -63,24 +59,54 @@ const FurnitureGallery = () => {
     }, fadeDurationInMs);
   };
 
-  const handleClick = e => {
+  const toggleFavorite = e => {
     e.preventDefault();
-    dispatch(toggleFavoriteProduct(id));
+    setProductsData(
+      productsData.map(product =>
+        product.id === id ? { ...product, isFavorite: !isFavorite } : product
+      )
+    );
   };
-  const count = useSelector(state => getCountOfCompared(state));
 
-  const handleCompare = e => {
+  const payload = {
+    id: id,
+    image: image,
+  };
+
+  const comparedCount = useRecoilValue(comparedProductsCounter);
+
+  const toggleCompare = e => {
     e.preventDefault();
-    if (isCompared) {
-      dispatch(toggleCompareProduct(id));
-      dispatch(removeFromCompare(id));
-    } else {
-      if (count < comparedProductsLimit) {
-        dispatch(addToCompare(id));
-        dispatch(toggleCompareProduct(id));
+    if (comparedCount < comparedProductsLimit) {
+      setProductsData(
+        productsData.map(product =>
+          product.id === id ? { ...product, isCompared: !isCompared } : product
+        )
+      );
+      if (!isCompared) {
+        setComparedProducts({
+          ...comparedProducts,
+          products: [...comparedProducts.products, payload],
+        });
       } else {
-        alert(`Max number of compared products is ${comparedProductsLimit}`); // change to final alert modal
+        setComparedProducts({
+          ...comparedProducts,
+          products: comparedProducts.products.filter(
+            product => product.id !== payload.id
+          ),
+        });
       }
+    } else {
+      // toast.error(`Compared products limit is ${comparedProductsLimit}.`, {
+      //   position: 'top-center',
+      //   autoClose: 3000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      // });
+      //uncomment after merging task 70
     }
   };
 
@@ -117,7 +143,7 @@ const FurnitureGallery = () => {
               />
               <div className={styles.buttonLayout}>
                 <Button
-                  onClick={handleClick}
+                  onClick={toggleFavorite}
                   active={isFavorite}
                   variant='outline'
                   extraInfo={'Add to favorites'}
@@ -125,7 +151,7 @@ const FurnitureGallery = () => {
                   <FontAwesomeIcon icon={faHeart} />
                 </Button>
                 <Button
-                  onClick={handleCompare}
+                  onClick={toggleCompare}
                   active={isCompared}
                   variant='outline'
                   extraInfo={'Compare'}
