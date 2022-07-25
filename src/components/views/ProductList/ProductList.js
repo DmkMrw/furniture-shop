@@ -7,7 +7,12 @@ const ProductList = () => {
     <div className={styles.root}>
       <div className='container'>
         <div className={styles.banner}>
-          <h1>Banner</h1>
+          <p className={styles.bannerTop}>
+            BEDROOM <span>FURNITURE</span>
+          </p>
+          <p className={styles.bannerBottom}>
+            ALWAYS <span>25%</span> OFF OR MORE
+          </p>
         </div>
         <div className='row'>
           <div className='col-9'>

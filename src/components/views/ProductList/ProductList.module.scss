@@ -5,7 +5,29 @@
 
   .banner {
     text-align: center;
-    padding: $space-unit * 3 0;
+    padding: $space-unit * 7 0;
+    background-color: $header-bg;
+    color: $color-white;
+    .bannerTop, .bannerBottom{
+      margin-bottom: 0;
+    };
+    .bannerTop{
+      font-size: 64px;
+      font-weight: $font-weight-lighter;
+      span {
+        font-weight:$font-weight-bold;
+      };
+    };
+    .bannerBottom{
+      font-size: 24px;
+      margin-right: -17px;
+      letter-spacing: 17px;
+              font-weight: $font-weight-light;
+      span {
+        font-weight: $font-weight-normal-bold;
+        color: $primary;
+      }
+    }
   };
 
   .productList{
