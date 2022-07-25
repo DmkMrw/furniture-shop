@@ -1,21 +1,27 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector } from 'react-redux';
 import ProductBox from '../../common/ProductBox/ProductBox';
 import styles from './FeaturedBox.module.scss';
 import Button from '../../common/Button/Button';
-import { getAll } from '../../../redux/featuredRedux';
-import { getProductById } from '../../../redux/productsRedux';
 import clsx from 'clsx';
 import Swipeable from '../../common/Swipeable/Swipeable';
 import CarouselButton from '../../common/CarouselButton/CarouselButton';
 import SliderDots from '../../common/SliderDots/SliderDots';
+import { useRecoilValue } from 'recoil';
+import { getAllFeatured } from '../../../recoil/featuredAtom';
+import { getProductById } from '../../../recoil/productsAtom';
+import {
+  fadeDurationInMs,
+  contentRefreshDelayInMs,
+  slideChangeDelayInMs,
+  autoplayPauseInMs,
+} from '../../../constants';
 
 const FeaturedBox = () => {
-  const featuredProductIds = useSelector(state => getAll(state));
+  const featuredProductIds = useRecoilValue(getAllFeatured);
   const [currentFeatured, setCurrentFeatured] = useState(0);
   const promoImageIdxs = [1, 2];
-  const currentProduct = useSelector(state =>
-    getProductById(state, featuredProductIds[currentFeatured])
+  const currentProduct = useRecoilValue(
+    getProductById(featuredProductIds[currentFeatured])
   );
   const lastPromoPageIdx = promoImageIdxs.length - 1;
   const featuredPages = featuredProductIds.length;
@@ -30,7 +36,7 @@ const FeaturedBox = () => {
       setFeaturedFade(true);
       setTimeout(() => {
         setFeaturedFade(false);
-      }, 1000);
+      }, fadeDurationInMs);
       setTimeout(() => {
         setCurrentFeatured(currentProduct => {
           if (currentProduct === lastItemIndex) {
@@ -38,14 +44,14 @@ const FeaturedBox = () => {
           }
           return (currentProduct += 1);
         });
-      }, 500);
+      }, contentRefreshDelayInMs);
     }
   }, [autoplayStatus, featuredPages]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       changeSlide();
-    }, 3500);
+    }, slideChangeDelayInMs);
 
     return () => {
       clearInterval(interval);
@@ -54,21 +60,21 @@ const FeaturedBox = () => {
 
   const manageAutoplay = () => {
     setAutoplayStatus(false);
-    setTimeout(() => setAutoplayStatus(true), 10000);
+    setTimeout(() => setAutoplayStatus(true), autoplayPauseInMs);
   };
 
   const manageFeaturedFade = () => {
     setFeaturedFade(true);
     setTimeout(() => {
       setFeaturedFade(false);
-    }, 1000);
+    }, fadeDurationInMs);
   };
 
   const managePromoFade = () => {
     setPromoFade(true);
     setTimeout(() => {
       setPromoFade(false);
-    }, 1000);
+    }, fadeDurationInMs);
   };
 
   const handleDot = elem => {
@@ -76,7 +82,7 @@ const FeaturedBox = () => {
     manageFeaturedFade();
     setTimeout(() => {
       setCurrentFeatured(elem);
-    }, 500);
+    }, contentRefreshDelayInMs);
   };
 
   return (
@@ -87,7 +93,7 @@ const FeaturedBox = () => {
             <div className={styles.heading}>
               <h5>Hot deals</h5>
               <SliderDots
-                pagesNumber={3}
+                pagesNumber={featuredPages}
                 action={handleDot}
                 currentPage={currentFeatured}
                 isFaded={featuredFade}
@@ -95,7 +101,7 @@ const FeaturedBox = () => {
             </div>
             <div
               onTouchStart={() => manageAutoplay()}
-              className={featuredFade ? styles.fade : ''}
+              className={clsx(featuredFade && styles.fade)}
             >
               <Swipeable
                 page={currentFeatured}

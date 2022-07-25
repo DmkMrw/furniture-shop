@@ -1,6 +1,6 @@
 //animation times
 export const fadeDurationInMs = 1000;
-export const contentRefreshDelayInMs = 500;
+export const contentRefreshDelayInMs = fadeDurationInMs / 2;
 //screen width breakpoints
 export const smallMobileBreakpoint = 400;
 export const mobileBreakpoint = 768;
@@ -17,3 +17,6 @@ export const productsPerPageDesktop = 8;
 export const productsPerPageLaptop = 6;
 export const productsPerPageTablet = 4;
 export const productsPerPageMobile = 2;
+//autoplay slider variables
+export const slideChangeDelayInMs = 3500;
+export const autoplayPauseInMs = 10000;
