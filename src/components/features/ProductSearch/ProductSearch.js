@@ -5,11 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListUl, faSearch, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './ProductSearch.module.scss';
-import { useSelector } from 'react-redux';
-import { getAll } from '../../../redux/categoriesRedux';
+import { useRecoilValue } from 'recoil';
+import { categoriesState } from '../../../recoil/categoriesAtom';
 
 const ProductSearch = () => {
-  const categories = useSelector(state => getAll(state));
+  const categories = useRecoilValue(categoriesState);
 
   return (
     <form action='' className={styles.root}>

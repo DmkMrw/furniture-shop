@@ -1,7 +1,7 @@
 import { atom } from 'recoil';
 
 export const categoriesState = atom({
-  key: 'categories',
+  key: 'categoriesState',
   default: [
     { id: 'bed', name: 'Bed' },
     { id: 'chair', name: 'Chair' },
