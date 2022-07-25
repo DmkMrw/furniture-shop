@@ -3,11 +3,15 @@ import React from 'react';
 import styles from './ProductList.module.scss';
 import Banner from '../Banner/Banner';
 
+import { useParams } from 'react-router-dom';
+
 const ProductList = () => {
+  const { categoryId } = useParams();
+
   return (
     <div className={styles.root}>
       <div className='container'>
-        <Banner />
+        <Banner categoryId={categoryId} />
         <div className='row'>
           <div className='col-9'>
             <div className={styles.productList}>

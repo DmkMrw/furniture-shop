@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './Banner.module.scss';
+import PropTypes from 'prop-types';
 
-const Banner = () => {
+const Banner = ({ categoryId }) => {
   return (
     <>
       <div className={styles.banner}>
@@ -14,13 +15,17 @@ const Banner = () => {
       </div>
       <div className={styles.navigation}>
         <div className={styles.navWrapper}>
-          <a href='Home'>Home</a>
+          <span>Home</span>
           <span>&gt;</span>
-          <a href='Furniture'>Furniture</a>
+          <a href=''>{categoryId}</a>
         </div>
       </div>
     </>
   );
+};
+
+Banner.propTypes = {
+  categoryId: PropTypes.string,
 };
 
 export default Banner;
