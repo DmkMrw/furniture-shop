@@ -1464,3 +1464,11 @@ export const getProductById = selectorFamily({
     return products.find(product => product.id === id);
   },
 });
+
+export const getProductsGroup = selectorFamily({
+  key: 'getProductsGroup',
+  get: arr => ({ get }) => {
+    const products = get(productsState);
+    return products.filter(product => arr.indexOf(product.id) !== -1);
+  },
+});
