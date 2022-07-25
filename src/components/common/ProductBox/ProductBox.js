@@ -17,6 +17,7 @@ import {
   comparedProductsCounter,
 } from '../../../recoil/productComparatorAtom';
 import { comparedProductsLimit } from '../../../constants';
+import { toast } from 'react-toastify';
 
 const ProductBox = ({
   name,
@@ -71,7 +72,15 @@ const ProductBox = ({
         });
       }
     } else {
-      alert('Max number of compared products is 4');
+      toast.error(`Compared products limit is ${comparedProductsLimit}.`, {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
