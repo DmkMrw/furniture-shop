@@ -1,7 +1,7 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 
 export const brandsState = atom({
-  key: 'brands',
+  key: 'brandsState',
   default: [
     {
       id: 'brand1',
@@ -64,4 +64,12 @@ export const brandsState = atom({
       image: 'brand2',
     },
   ],
+});
+
+export const allBrands = selector({
+  key: 'brands',
+  get: ({ get }) => {
+    const brands = get(brandsState);
+    return brands;
+  },
 });
