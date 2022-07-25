@@ -17,3 +17,6 @@ export const productsPerPageDesktop = 8;
 export const productsPerPageLaptop = 6;
 export const productsPerPageTablet = 4;
 export const productsPerPageMobile = 2;
+//autoplay slider variables
+export const slideChangeDelayInMs = 3500;
+export const autoplayPauseInMs = 10000;
