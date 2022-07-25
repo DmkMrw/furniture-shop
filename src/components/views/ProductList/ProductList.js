@@ -14,6 +14,13 @@ const ProductList = () => {
             ALWAYS <span>25%</span> OFF OR MORE
           </p>
         </div>
+        <div className={styles.navigation}>
+          <div className={styles.navWrapper}>
+            <a href='Home'>Home</a>
+            <span>&gt;</span>
+            <a href='Furniture'>Furniture</a>
+          </div>
+        </div>
         <div className='row'>
           <div className='col-9'>
             <div className={styles.productList}>

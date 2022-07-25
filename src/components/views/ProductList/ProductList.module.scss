@@ -12,23 +12,51 @@
       margin-bottom: 0;
     };
     .bannerTop{
-      font-size: 64px;
+      font-size: $banner-font-big;
       font-weight: $font-weight-lighter;
       span {
         font-weight:$font-weight-bold;
       };
     };
     .bannerBottom{
-      font-size: 24px;
+      padding: 0 $space-unit * 2;
+      font-size: $banner-font-small;
       margin-right: -17px;
       letter-spacing: 17px;
-              font-weight: $font-weight-light;
+      font-weight: $font-weight-light;
       span {
         font-weight: $font-weight-normal-bold;
         color: $primary;
       }
     }
   };
+  .navigation{
+    width: 100%;
+    background-color: #ddd;
+    height: 40px;
+    margin-bottom: $space-unit * 4;
+    .navWrapper {
+      width: 30%;
+      padding: 0 $space-unit * 3;
+      a, span {
+        padding: 0 $space-unit;
+      }
+      a {
+        text-decoration: none;
+        color: $text-color;
+        &:hover {
+          color: $primary;
+        }
+      }
+      a:last-child {
+        color:$primary;
+        font-weight: $font-weight-normal-bold;
+      }
+    }
+    span{
+      line-height: 40px;
+    }
+  }
 
   .productList{
     text-transform: uppercase;
