@@ -10,13 +10,19 @@ import {
   comparedProductsCounter,
 } from '../../../recoil/productComparatorAtom';
 import { useRecoilValue } from 'recoil';
+import { comparedProductsMin } from '../../../constants';
 
 const ProductComparator = () => {
   const comparedProducts = useRecoilValue(comparedProductsState);
   const comparedProductsCount = useRecoilValue(comparedProductsCounter);
 
   return (
-    <div className={clsx(styles.root, !comparedProductsCount && styles.hidden)}>
+    <div
+      className={clsx(
+        styles.root,
+        comparedProductsCount < comparedProductsMin && styles.hidden
+      )}
+    >
       <div className={styles.container}>
         <div className={styles.comparedCards}>
           {comparedProducts.products.map(product => (

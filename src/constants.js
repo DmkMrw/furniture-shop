@@ -12,6 +12,7 @@ export const tabletItemsPerPage = 5;
 export const desktopItemsPerPage = 6;
 //product comparator variables
 export const comparedProductsLimit = 4;
+export const comparedProductsMin = 2;
 //new furniture variables
 export const productsPerPageDesktop = 8;
 export const productsPerPageLaptop = 6;
