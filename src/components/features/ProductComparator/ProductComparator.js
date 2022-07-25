@@ -16,7 +16,7 @@ const ProductComparator = () => {
   const comparedProductsCount = useRecoilValue(comparedProductsCounter);
 
   return (
-    <div className={clsx(styles.root, comparedProductsCount < 2 && styles.hidden)}>
+    <div className={clsx(styles.root, !comparedProductsCount && styles.hidden)}>
       <div className={styles.container}>
         <div className={styles.comparedCards}>
           {comparedProducts.products.map(product => (
