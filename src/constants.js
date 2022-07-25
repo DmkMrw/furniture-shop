@@ -1,6 +1,6 @@
 //animation times
 export const fadeDurationInMs = 1000;
-export const contentRefreshDelayInMs = 500;
+export const contentRefreshDelayInMs = fadeDurationInMs / 2;
 //screen width breakpoints
 export const smallMobileBreakpoint = 400;
 export const mobileBreakpoint = 768;
