@@ -4,23 +4,19 @@ import clsx from 'clsx';
 import styles from './ProductBox.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExchangeAlt, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
-import { faStar as faHeart, faEye } from '@fortawesome/free-regular-svg-icons';
+import { faHeart, faEye } from '@fortawesome/free-regular-svg-icons';
 import Button from '../Button/Button';
 import StarRating from '../../features/StarRating/StarRating';
-import { useDispatch } from 'react-redux';
-import {
-  toggleFavoriteProduct,
-  toggleCompareProduct,
-} from '../../../redux/productsRedux';
 import Timer from '../Timer/Timer';
 import { Link } from 'react-router-dom';
 import ProductPopup from '../../features/ProductPopup/ProductPopup';
-import { addProduct } from '../../../redux/cartRedux';
+import { productsState } from '../../../recoil/productsAtom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   comparedProductsState,
   comparedProductsCounter,
 } from '../../../recoil/productComparatorAtom';
+import { comparedProductsLimit } from '../../../constants';
 
 const ProductBox = ({
   name,
@@ -35,40 +31,47 @@ const ProductBox = ({
   image,
   ownStars,
 }) => {
-  const dispatch = useDispatch();
-
-  const handleClick = e => {
-    e.preventDefault();
-    dispatch(toggleFavoriteProduct(id));
-  };
-
+  const [productsData, setProductsData] = useRecoilState(productsState);
   const [comparedProduct, setComparedProduct] = useRecoilState(comparedProductsState);
   const count = useRecoilValue(comparedProductsCounter);
 
   const payload = {
     id: id,
     image: image,
-    isCompared: true,
   };
 
-  const handleCompare = e => {
+  const toggleFavorite = e => {
     e.preventDefault();
-    if (isCompared) {
-      dispatch(toggleCompareProduct(id));
-      setComparedProduct({
-        ...comparedProduct,
-        products: comparedProduct.products.filter(product => product.id !== payload.id),
-      });
-    } else {
-      if (count < 4) {
+    setProductsData(
+      productsData.map(product =>
+        product.id === id ? { ...product, isFavorite: !isFavorite } : product
+      )
+    );
+  };
+
+  const toggleCompare = e => {
+    e.preventDefault();
+    if (count < comparedProductsLimit) {
+      setProductsData(
+        productsData.map(product =>
+          product.id === id ? { ...product, isCompared: !isCompared } : product
+        )
+      );
+      if (!isCompared) {
         setComparedProduct({
           ...comparedProduct,
           products: [...comparedProduct.products, payload],
         });
-        dispatch(toggleCompareProduct(payload.id));
       } else {
-        alert('Max number of compared products is 4'); // change to final alert modal
+        setComparedProduct({
+          ...comparedProduct,
+          products: comparedProduct.products.filter(
+            product => product.id !== payload.id
+          ),
+        });
       }
+    } else {
+      alert('Max number of compared products is 4');
     }
   };
 
@@ -92,7 +95,7 @@ const ProductBox = ({
         </Link>
         {isFeatured && (
           <div className={styles.additionalInfo}>
-            <Button onClick={() => dispatch(addProduct(id))} variant='medium'>
+            <Button onClick={() => {}} variant='medium'>
               <FontAwesomeIcon icon={faShoppingBasket}></FontAwesomeIcon> ADD TO CART
             </Button>
             <div className={styles.timerLayout}>
@@ -128,14 +131,14 @@ const ProductBox = ({
             </Button>
           )}
           <Button
-            onClick={handleClick}
+            onClick={toggleFavorite}
             className={clsx(styles.buttonHover, isFavorite && styles.isActive)}
             variant='outline'
           >
             <FontAwesomeIcon icon={faHeart}>Favorite</FontAwesomeIcon>
           </Button>
           <Button
-            onClick={handleCompare}
+            onClick={toggleCompare}
             className={clsx(styles.buttonHover, isCompared && styles.isActive)}
             variant='outline'
           >
