@@ -3,29 +3,26 @@ import PropTypes from 'prop-types';
 import Button from '../../common/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
-import { toggleCompareProduct } from '../../../redux/productsRedux';
 import styles from './ComparedProductCard.module.scss';
 
 import { comparedProductsState } from '../../../recoil/productComparatorAtom';
 import { useRecoilState } from 'recoil';
+import { productsState } from '../../../recoil/productsAtom';
 
 const ComparedProductCard = ({ id, image }) => {
-  const dispatch = useDispatch();
-
   const [comparedProduct, setComparedProduct] = useRecoilState(comparedProductsState);
-
-  const payload = {
-    id: id,
-    image: image,
-  };
+  const [productsData, setProductsData] = useRecoilState(productsState);
 
   const removeCompare = e => {
     e.preventDefault();
-    dispatch(toggleCompareProduct(id));
+    setProductsData(
+      productsData.map(product =>
+        product.id === id ? { ...product, isCompared: !product.isCompared } : product
+      )
+    );
     setComparedProduct({
       ...comparedProduct,
-      products: comparedProduct.products.filter(product => product.id !== payload.id),
+      products: comparedProduct.products.filter(product => product.id !== id),
     });
   };
 

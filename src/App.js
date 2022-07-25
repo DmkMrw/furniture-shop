@@ -3,7 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { RecoilRoot } from 'recoil';
+import { ToastContainer } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './styles/bootstrap.scss';
 import './styles/global.scss';
 
@@ -19,6 +21,7 @@ const App = () => (
     <Provider store={store}>
       <BrowserRouter>
         <MainLayout>
+          <ToastContainer />
           <Routes>
             <Route exact path={'/'} element={<Homepage />} />
             <Route exact path={'/shop/:categoryId'} element={<ProductList />} />
