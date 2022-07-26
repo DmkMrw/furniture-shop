@@ -1,11 +1,4 @@
 const initialState = {
-  categories: [
-    { id: 'bed', name: 'Bed' },
-    { id: 'chair', name: 'Chair' },
-    { id: 'sofa', name: 'Sofa' },
-    { id: 'table', name: 'Table' },
-    { id: 'dining', name: 'Dining' },
-  ],
   products: [
     {
       id: 'aenean-ru-bristique-1',
