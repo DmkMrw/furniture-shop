@@ -1,14 +1,17 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import styles from './ProductList.module.scss';
+import Banner from '../Banner/Banner';
+
+import { useParams } from 'react-router-dom';
 
 const ProductList = () => {
+  const { categoryId } = useParams();
+
   return (
     <div className={styles.root}>
       <div className='container'>
-        <div className={styles.banner}>
-          <h1>Banner</h1>
-        </div>
+        <Banner categoryId={categoryId} />
         <div className='row'>
           <div className='col-9'>
             <div className={styles.productList}>

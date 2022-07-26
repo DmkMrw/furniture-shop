@@ -1,0 +1,57 @@
+@import "../../../styles/settings.scss";
+
+.banner {
+    text-align: center;
+    padding: $space-unit * 7 0;
+    background-color: $header-bg;
+    color: $color-white;
+    .bannerTop, .bannerBottom{
+      margin-bottom: 0;
+    };
+    .bannerTop{
+      font-size: $banner-font-big;
+      font-weight: $font-weight-light;
+      span {
+        font-weight:$font-weight-bold;
+      };
+    };
+    .bannerBottom{
+      padding: 0 $space-unit * 2;
+      font-size: $banner-font-small;
+      margin-right: -$banner-letter-spacing;
+      letter-spacing: $banner-letter-spacing;
+      font-weight: $font-weight-light;
+      span {
+        font-weight: $font-weight-normal-bold;
+        color: $primary;
+      }
+    }
+  };
+  .navigation{
+    width: 100%;
+    background-color: #ddd;
+    height: 40px;
+    margin-bottom: $space-unit * 4;
+    .navWrapper {
+      width: 30%;
+      padding: 0 $space-unit * 3;
+      a, span {
+        padding: 0 $space-unit;
+      }
+      a {
+        text-decoration: none;
+        color: $text-color;
+        text-transform: capitalize;
+        &:hover {
+          color: $primary;
+        }
+      }
+      a:last-child {
+        color:$primary;
+        font-weight: $font-weight-normal-bold;
+      }
+    }
+    span{
+      line-height: 40px;
+    }
+  }
