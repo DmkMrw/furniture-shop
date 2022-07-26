@@ -10,7 +10,7 @@
     };
     .bannerTop{
       font-size: $banner-font-big;
-      font-weight: $font-weight-lighter;
+      font-weight: $font-weight-light;
       span {
         font-weight:$font-weight-bold;
       };
@@ -18,8 +18,8 @@
     .bannerBottom{
       padding: 0 $space-unit * 2;
       font-size: $banner-font-small;
-      margin-right: -17px;
-      letter-spacing: 17px;
+      margin-right: -$banner-letter-spacing;
+      letter-spacing: $banner-letter-spacing;
       font-weight: $font-weight-light;
       span {
         font-weight: $font-weight-normal-bold;
