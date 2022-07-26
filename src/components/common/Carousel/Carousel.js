@@ -109,7 +109,7 @@ const Carousel = ({ products, action, parentFade, handleParentFade }) => {
 };
 
 Carousel.propTypes = {
-  products: PropTypes.arrayOf(PropTypes.string),
+  products: PropTypes.arrayOf(PropTypes.object),
   action: PropTypes.func || undefined,
   parentFade: PropTypes.bool,
   handleParentFade: PropTypes.func,
